@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
     val retrofit = Retrofit.Builder()
-        .baseUrl("https://quote-garden.herokuapp.com")
+        .baseUrl("https://quote-garden.onrender.com")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
