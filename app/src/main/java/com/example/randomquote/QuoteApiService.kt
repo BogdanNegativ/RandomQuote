@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface QuoteApiService {
     @GET("/api/v3/quotes/random")
-    suspend fun getRandomQuote(): Response<Quote>
+    suspend fun getRandomQuote(): Response<QuoteResponse>
 }
