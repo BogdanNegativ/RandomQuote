@@ -22,8 +22,11 @@ class MainActivity : AppCompatActivity() {
     val quoteApiService = retrofit.create(QuoteApiService::class.java)
 
     private lateinit var quoteTextView: TextView
+    private lateinit var quoteButton: Button
 
     private fun loadRandomQuote() {
+        quoteButton.setEnabled(false);
+        quoteTextView.text="Цитата загружается..."
         lifecycleScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
@@ -48,16 +51,17 @@ class MainActivity : AppCompatActivity() {
                 Log.e("QuoteActivity", "Error: ${e.message}")
                 Toast.makeText(this@MainActivity, "Произошла ошибка: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+            quoteButton.setEnabled(true);
         }
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         quoteTextView = findViewById(R.id.quoteTextView)
-        val refreshButton: Button = findViewById(R.id.refreshButton)
-
-        refreshButton.setOnClickListener {
+        quoteButton=findViewById(R.id.refreshButton)
+        quoteButton.setOnClickListener{
             loadRandomQuote()
         }
 
