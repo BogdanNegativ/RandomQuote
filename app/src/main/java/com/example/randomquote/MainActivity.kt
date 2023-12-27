@@ -55,6 +55,16 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("quoteText", quoteTextView.text.toString())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val savedQuote = savedInstanceState.getString("quoteText")
+        quoteTextView.text = savedQuote
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -64,7 +74,11 @@ class MainActivity : AppCompatActivity() {
         quoteButton.setOnClickListener{
             loadRandomQuote()
         }
-
-        loadRandomQuote()
+        if (savedInstanceState != null) {
+            val savedQuote = savedInstanceState.getString("quoteText")
+            quoteTextView.text = savedQuote
+        } else {
+            loadRandomQuote()
+        }
     }
 }
